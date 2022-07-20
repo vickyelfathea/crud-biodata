@@ -9,7 +9,7 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/vickyelfathea/rental-vehicle-ui.git
+git clone https://github.com/vickyelfathea/movie-ticket.git
 ```
 
 2. Install dependencies
