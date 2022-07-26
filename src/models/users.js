@@ -3,12 +3,12 @@ const models = {};
 
 models.searchData = function (id) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.users WHERE user_id=$1', [id])
+    db.query('SELECT * FROM public.user WHERE id=$1', [id])
       .then((data) => {
-        const [{ display_image }] = data.rows;
-        if (display_image) {
-          const print = `Image path has found ${display_image} `;
-          resolve(display_image);
+        const [{ pasfoto }] = data.rows;
+        if (pasfoto) {
+          const print = `Image path has found ${pasfoto} `;
+          resolve(pasfoto);
         } else {
           resolve('Display image already deleted');
         }
@@ -22,9 +22,9 @@ models.searchData = function (id) {
 models.dbDelete = function (id) {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE public.users
-        SET display_image=NULL
-        WHERE user_id=$1;
+      `UPDATE public.user
+        SET pasfoto=NULL
+        WHERE id=$1;
         `,
       [id]
     )
@@ -41,14 +41,14 @@ models.dbDelete = function (id) {
   });
 };
 
-models.Update = function (id, displayImage) {
+models.Update = function (id, pasfoto) {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE public.users
-    SET display_image=$2
-    WHERE user_id=$1;
+      `UPDATE public.user
+    SET pasfoto=$2
+    WHERE id=$1;
     `,
-      [id, displayImage]
+      [id, pasfoto]
     )
       .then((data) => {
         resolve('data berhasil disimpan');
@@ -61,7 +61,7 @@ models.Update = function (id, displayImage) {
 
 models.getData = function () {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.User ORDER BY nik DESC')
+    db.query('SELECT * FROM public.User ORDER BY id DESC')
       .then((data) => {
         resolve(data.rows);
       })

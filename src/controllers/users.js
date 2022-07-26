@@ -23,17 +23,19 @@ users.deletePhoto = async (req, res) => {
 
 users.updatePhoto = async (req, res) => {
   try {
-    let displayImage = '';
+    let pasfoto = '';
     if (req.file !== undefined) {
-      displayImage = req.file.path;
+      pasfoto = req.file.path;
     }
 
     const db = req.params.id;
     const path = await models.searchData(db);
-    const del = await unlinkAsync(path);
+    // const del = await unlinkAsync(path);
     const dbDelete = await models.dbDelete(db);
 
-    const data = await models.Update(db, displayImage);
+    console.log(pasfoto);
+
+    const data = await models.Update(db, pasfoto);
 
     return respone(res, 200, data);
   } catch (error) {

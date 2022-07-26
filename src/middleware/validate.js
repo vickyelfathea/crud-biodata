@@ -11,8 +11,8 @@ validateToken.admin = (req, res, next) => {
   }
 
   jwt.verify(auth_token, process.env.JWT_KEYS, (err, decode) => {
-    req.users = decode;
-    const role = req.users.role;
+    req.user = decode;
+    const role = req.user.role;
 
     if (err || role !== 'admin') {
       return respone(res, 401, 'log in as admin!');
@@ -30,8 +30,8 @@ validateToken.user = (req, res, next) => {
   }
 
   jwt.verify(auth_token, process.env.JWT_KEYS, (err, decode) => {
-    req.users = decode;
-    const role = req.users.role;
+    req.user = decode;
+    const role = req.user.role;
 
     next();
   });

@@ -3,12 +3,12 @@ const models = {};
 
 models.searchData = function (id) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.users WHERE user_id=$1', [id])
+    db.query('SELECT * FROM public.user WHERE id=$1', [id])
       .then((data) => {
-        const [{ display_image }] = data.rows;
-        if (display_image) {
-          const print = `Image path has found ${display_image} `;
-          resolve(display_image);
+        const [{ pasfoto }] = data.rows;
+        if (pasfoto) {
+          const print = `Image path has found ${pasfoto} `;
+          resolve(pasfoto);
         } else {
           resolve('Display image already deleted');
         }
@@ -22,9 +22,9 @@ models.searchData = function (id) {
 models.dbDelete = function (id) {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE public.users
+      `UPDATE public.user
         SET display_image=NULL
-        WHERE user_id=$1;
+        WHERE id=$1;
         `,
       [id]
     )
@@ -44,9 +44,9 @@ models.dbDelete = function (id) {
 models.Update = function (id, displayImage) {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE public.users
+      `UPDATE public.user
     SET display_image=$2
-    WHERE user_id=$1;
+    WHERE id=$1;
     `,
       [id, displayImage]
     )
@@ -61,7 +61,7 @@ models.Update = function (id, displayImage) {
 
 models.getData = function () {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.users ORDER BY user_id DESC')
+    db.query('SELECT * FROM public.user ORDER BY id DESC')
       .then((data) => {
         resolve(data.rows);
       })
@@ -73,7 +73,7 @@ models.getData = function () {
 
 models.getByUsername = function (users) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.users WHERE username = $1', [users])
+    db.query('SELECT * FROM public.user WHERE username = $1', [users])
       .then((data) => {
         resolve(data.rows);
       })
@@ -86,7 +86,7 @@ models.getByUsername = function (users) {
 
 models.getRole = function (users) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT role FROM public.users WHERE username = $1', [users])
+    db.query('SELECT role FROM public.user WHERE username = $1', [users])
       .then((data) => {
         resolve(data.rows);
       })

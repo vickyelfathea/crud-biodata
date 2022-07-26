@@ -15,7 +15,7 @@ routers.delete('/:id', validate.admin, ctrl.deletePhoto);
 routers.put(
   '/update/:id',
   validate.admin,
-  upload.user.single('displayImage'),
+  upload.user.single('pasfoto'),
   ctrl.updatePhoto
 );
 
