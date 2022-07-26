@@ -5,7 +5,12 @@ const validate = require('../middleware/validate');
 const upload = require('../middleware/upload');
 
 routers.get('/', validate.user, ctrl.getAll);
-routers.post('/add', upload.user.single('displayImage'), ctrl.Create);
+routers.post(
+  '/add',
+  validate.admin,
+  upload.user.single('pasfoto'),
+  ctrl.Create
+);
 routers.delete('/:id', validate.admin, ctrl.deletePhoto);
 routers.put(
   '/update/:id',

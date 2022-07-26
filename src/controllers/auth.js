@@ -19,13 +19,15 @@ function genToken(username, role) {
 
 async function Login(req, res) {
   try {
-    const password_db = await models.getByUsername(req.body.username);
-    const [{ role }] = await models.getRole(req.body.username);
+    const password_db = await models.getByUsername(req.body.email);
+    if (password_db.length == 0) {
+      return respone(res, 200, 'email tidak terdaftar');
+    }
 
-    console.log(role);
+    const [{ role }] = await models.getRole(req.body.email);
 
     if (password_db.length <= 0) {
-      return respone(res, 200, 'Username tidak terdaftar');
+      return respone(res, 200, 'Email tidak terdaftar');
     }
 
     const password_user = req.body.password;

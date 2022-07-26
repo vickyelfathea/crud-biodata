@@ -53,18 +53,18 @@ users.getAll = async (req, res) => {
 
 users.Create = async (req, res) => {
   try {
-    let displayImage = '';
+    let pasfoto = '';
     if (req.file !== undefined) {
-      displayImage = req.file.path;
+      pasfoto = req.file.path;
     }
 
-    const { username, password, role } = req.body;
-    const hashPassword = await HashPasswords(password);
+    const { nik, namalengkap, gender, golongandarah } = req.body;
     const data = await models.addData({
-      username,
-      hashPassword,
-      role,
-      displayImage,
+      nik,
+      namalengkap,
+      gender,
+      golongandarah,
+      pasfoto,
     });
     return respone(res, 200, data);
   } catch (error) {

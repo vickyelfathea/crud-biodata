@@ -61,7 +61,7 @@ models.Update = function (id, displayImage) {
 
 models.getData = function () {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.users ORDER BY user_id DESC')
+    db.query('SELECT * FROM public.User ORDER BY nik DESC')
       .then((data) => {
         resolve(data.rows);
       })
@@ -73,7 +73,7 @@ models.getData = function () {
 
 models.getByUsername = function (users) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.users WHERE username = $1', [users])
+    db.query('SELECT * FROM public.admin WHERE email = $1', [users])
       .then((data) => {
         resolve(data.rows);
       })
@@ -86,7 +86,7 @@ models.getByUsername = function (users) {
 
 models.getRole = function (users) {
   return new Promise((resolve, reject) => {
-    db.query('SELECT role FROM public.users WHERE username = $1', [users])
+    db.query('SELECT role FROM public.admin WHERE email = $1', [users])
       .then((data) => {
         resolve(data.rows);
       })
@@ -97,14 +97,20 @@ models.getRole = function (users) {
   });
 };
 
-models.addData = function ({ username, hashPassword, role, displayImage }) {
+models.addData = function ({
+  nik,
+  namalengkap,
+  gender,
+  golongandarah,
+  pasfoto,
+}) {
   return new Promise((resolve, reject) => {
     db.query(
-      `INSERT INTO public.users
-      (username, "password", created_at, update_at, role, display_image)
-      VALUES($1, $2, now(), now(), $3, $4);    
+      `INSERT INTO public.user
+      (nik, namalengkap, gender, golongandarah, pasfoto)
+      VALUES($1, $2, $3, $4, $5);    
     `,
-      [username, hashPassword, role, displayImage]
+      [nik, namalengkap, gender, golongandarah, pasfoto]
     )
       .then((data) => {
         resolve('data berhasil disimpan');

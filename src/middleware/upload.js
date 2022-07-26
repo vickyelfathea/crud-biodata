@@ -20,10 +20,8 @@ const filter = (req, file, cb) => {
     file.mimetype == 'image/png' ||
     file.mimetype == 'image/jpeg'
   ) {
-    console.log('here');
     cb(null, true);
   } else {
-    console.log('here');
     cb(null, false);
   }
 };

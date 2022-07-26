@@ -5,7 +5,7 @@ const db = require('./src/configs/db');
 const cors = require('cors');
 
 const server = express();
-const PORT = 8080;
+const PORT = 1212;
 
 server.use(express.urlencoded({ extended: false }));
 server.use(express.json());
