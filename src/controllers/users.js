@@ -21,6 +21,16 @@ users.deletePhoto = async (req, res) => {
   }
 };
 
+users.Delete = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleteData = await models.deleteData(id);
+    return respone(res, 200, deleteData);
+  } catch (error) {
+    res.send('Maaf error terjadi di ctrl');
+  }
+};
+
 users.updatePhoto = async (req, res) => {
   try {
     let pasfoto = '';

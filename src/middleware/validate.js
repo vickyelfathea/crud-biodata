@@ -12,13 +12,17 @@ validateToken.admin = (req, res, next) => {
 
   jwt.verify(auth_token, process.env.JWT_KEYS, (err, decode) => {
     req.user = decode;
-    const role = req.user.role;
+    if (req.user == null) {
+      return respone(res, 401, 'token expired, login again');
+    } else {
+      const role = req.user.role;
 
-    if (err || role !== 'admin') {
-      return respone(res, 401, 'log in as admin!');
+      if (err || role !== 'admin') {
+        return respone(res, 401, 'log in as admin!');
+      }
+
+      next();
     }
-
-    next();
   });
 };
 
@@ -31,9 +35,13 @@ validateToken.user = (req, res, next) => {
 
   jwt.verify(auth_token, process.env.JWT_KEYS, (err, decode) => {
     req.user = decode;
-    const role = req.user.role;
+    if (req.user == null) {
+      return respone(res, 401, 'token expired, login again');
+    } else {
+      const role = req.user.role;
 
-    next();
+      next();
+    }
   });
 };
 module.exports = validateToken;

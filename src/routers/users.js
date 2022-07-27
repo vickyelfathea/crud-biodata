@@ -11,7 +11,8 @@ routers.post(
   upload.user.single('pasfoto'),
   ctrl.Create
 );
-routers.delete('/:id', validate.admin, ctrl.deletePhoto);
+routers.delete('/delete/photo/:id', validate.admin, ctrl.deletePhoto);
+routers.delete('/delete/:id', validate.admin, ctrl.Delete);
 routers.put(
   '/update/:id',
   validate.admin,

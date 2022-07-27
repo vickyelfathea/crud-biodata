@@ -59,6 +59,24 @@ models.Update = function (id, pasfoto) {
   });
 };
 
+models.deleteData = function ({ id }) {
+  return new Promise((resolve, reject) => {
+    console.log(id);
+    db.query(
+      `DELETE FROM public.user
+        WHERE id=$1;
+        `,
+      [id]
+    )
+      .then((data) => {
+        resolve(`data berhasil dihapus`);
+      })
+      .catch((ers) => {
+        reject(ers);
+      });
+  });
+};
+
 models.getData = function () {
   return new Promise((resolve, reject) => {
     db.query('SELECT * FROM public.User ORDER BY id DESC')

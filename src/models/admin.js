@@ -61,7 +61,7 @@ models.Update = function (id, displayImage) {
 
 models.getData = function () {
   return new Promise((resolve, reject) => {
-    db.query('SELECT * FROM public.user ORDER BY id DESC')
+    db.query('SELECT * FROM public.admin ORDER BY id DESC')
       .then((data) => {
         resolve(data.rows);
       })

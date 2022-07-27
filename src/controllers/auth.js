@@ -9,7 +9,7 @@ function genToken(username, role) {
     role: role,
   };
 
-  const token = jwt.sign(payload, process.env.JWT_KEYS, { expiresIn: 600 });
+  const token = jwt.sign(payload, process.env.JWT_KEYS, { expiresIn: 6000 });
 
   return {
     token,
